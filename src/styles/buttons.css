@@ -1,0 +1,145 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 20px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-control);
+  transition:
+    background-color var(--duration) var(--ease),
+    border-color var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease),
+    transform var(--duration-press) var(--ease);
+}
+
+.btn:focus-visible {
+  outline: 2.5px solid var(--blue-600);
+  outline-offset: 2px;
+}
+
+/* ─── Primary ─── */
+
+.btn--primary {
+  color: var(--white);
+  background: var(--blue-600);
+  box-shadow: var(--shadow-button);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    background: var(--blue-700);
+    box-shadow: var(--shadow-button-hover);
+  }
+}
+
+.btn--primary:active {
+  background: var(--blue-800);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+  transform: scale(var(--press-button));
+}
+
+/* ─── Secondary ─── */
+
+.btn--secondary {
+  color: var(--ink-800);
+  background: var(--white);
+  border-color: var(--line-subtle);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--secondary:hover {
+    background: var(--paper-100);
+    border-color: var(--line-strong);
+  }
+}
+
+.btn--secondary:active {
+  background: var(--paper-200);
+  transform: scale(var(--press-button));
+}
+
+/* ─── Loading state ─── */
+
+/* While submitting: stays focusable but gives no hover/press feedback. */
+.btn[aria-disabled='true'] {
+  cursor: progress;
+}
+
+.btn[aria-disabled='true']:active {
+  transform: none;
+}
+
+.btn--primary[aria-disabled='true']:hover,
+.btn--primary[aria-disabled='true']:active {
+  background: var(--blue-600);
+  box-shadow: var(--shadow-button);
+}
+
+/* Label fades in when text changes (idle → loading → idle). */
+.btn__label {
+  animation: fade-in var(--duration) var(--ease);
+}
+
+/* ─── Spinner ─── */
+
+/* Opens its own space so the label slides across instead of jumping. */
+.spinner {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 650ms linear infinite, spinner-in var(--duration) var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    border-top-color: rgba(255, 255, 255, 0.4);
+    background: var(--white);
+    animation: pulse 1.2s ease-in-out infinite, spinner-in var(--duration) var(--ease);
+  }
+}
+
+/* ─── Link button ─── */
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--blue-700);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-small);
+  transition: background-color var(--duration-press) var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link-btn:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.link-btn:active {
+  background: var(--blue-50);
+}
+
+@media (forced-colors: active) {
+  .btn--primary {
+    border-color: ButtonText;
+  }
+}

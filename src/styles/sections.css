@@ -1,0 +1,168 @@
+/* ─── Progress ─────────────────────────────────────── */
+
+.progress {
+  margin-top: 20px;
+}
+
+.progress__text {
+  margin-bottom: 7px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+.progress__bar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.progress__segment {
+  height: 3px;
+  overflow: hidden;
+  background: var(--line-soft);
+  border-radius: 2px;
+}
+
+.progress__fill {
+  display: block;
+  height: 100%;
+  background: var(--blue-600);
+  transform: scaleX(var(--fill, 0));
+  transform-origin: left;
+  transition: transform 200ms var(--ease), background-color 200ms var(--ease);
+}
+
+.progress[data-complete] .progress__fill {
+  background: var(--mint-500);
+}
+
+
+/* ─── Sections ─────────────────────────────────────── */
+
+.section {
+  padding: 28px 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.section:last-child {
+  padding-bottom: 0;
+}
+
+.section__fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Float trick: legend spans full width, clears below it so body follows normally. */
+.section__legend {
+  display: flex;
+  float: left;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin: 0 0 2px;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--ink-950);
+}
+
+.section__marker {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  /* Use tabular numbers for the numeral markers */
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: var(--radius-small);
+  transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease), border-color var(--duration) var(--ease);
+}
+
+.section__marker[data-done] {
+  color: var(--mint-700);
+  background: var(--mint-50);
+  border-color: rgba(15, 157, 107, 0.2);
+}
+
+.section__hint {
+  clear: both;
+  margin: 0 0 18px;
+  font-size: 0.8125rem;
+  color: var(--ink-500);
+}
+
+.section__body {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+/* ─── Form layout ────────────────────────────────── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px 16px;
+}
+
+@media (min-width: 640px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fields--single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (forced-colors: active) {
+  .progress__fill {
+    background: Highlight;
+  }
+}
+
+/* Entrance: the header and each section rise in turn. */
+.form-view .card__header,
+.form-view .section {
+  animation: rise var(--duration-enter) var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+.form-view .form > .section:nth-child(1) { --i: 1; }
+.form-view .form > .section:nth-child(2) { --i: 2; }
+.form-view .form > .section:nth-child(3) { --i: 3; }
+.form-view .form > .section:nth-child(4) { --i: 4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .progress__fill {
+    transition: background-color 200ms var(--ease);
+  }
+}

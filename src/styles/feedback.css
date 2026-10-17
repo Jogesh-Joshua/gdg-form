@@ -1,0 +1,58 @@
+/* ─── Error summary and form-level alert banner ─── */
+
+.error-summary,
+.banner {
+  margin-top: 20px;
+  padding: 14px 16px;
+  font-size: 0.875rem;
+  color: var(--coral-700);
+  background: var(--coral-50);
+  border: 1px solid rgba(217, 45, 58, 0.25);
+  border-left: 3px solid var(--coral-500);
+  border-radius: var(--radius-control);
+  animation: drop 160ms var(--ease);
+}
+
+.error-summary__title,
+.banner__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.error-summary__list {
+  display: grid;
+  gap: 5px;
+  margin-top: 8px;
+  padding-left: 16px;
+  list-style: disc;
+}
+
+.error-summary__list a {
+  color: var(--coral-700);
+  text-underline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .error-summary__list a:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+.banner {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.banner svg {
+  flex: none;
+  margin-top: 1px;
+  color: var(--coral-500);
+}
+
+.banner p + p {
+  margin-top: 3px;
+  font-size: 0.8125rem;
+  color: var(--coral-700);
+  opacity: 0.85;
+}

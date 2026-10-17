@@ -1,0 +1,299 @@
+/* Shell */
+
+.shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}
+
+/* ─── Brand panel ─────────────────────────────────── */
+
+.brand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 20px 20px 24px;
+  padding-top: max(20px, env(safe-area-inset-top));
+  color: var(--on-dark);
+  background: var(--ink-950);
+}
+
+/* Subtle geometric noise — replaces the heavy grid */
+.brand::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(47, 84, 235, 0.28) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,0.025) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(255,255,255,0.025) 25%, transparent 25%);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+}
+
+/* GDG colour accent bar */
+.brand::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    #4285f4 0% 25%,
+    #ea4335 25% 50%,
+    #fbbc04 50% 75%,
+    #34a853 75% 100%
+  );
+}
+
+.brand__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  max-width: 540px;
+}
+
+/* ─── Logo ─── */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+}
+
+.logo__mark {
+  flex: none;
+}
+
+.logo__name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Brand copy ─── */
+
+.brand__title {
+  max-width: 18ch;
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  color: var(--white);
+}
+
+.brand__pitch {
+  max-width: 48ch;
+  margin-top: 10px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--on-dark-muted);
+}
+
+.brand__title,
+.brand__pitch,
+.buildlog {
+  animation: rise var(--duration-enter) var(--ease) backwards;
+}
+
+.brand__pitch {
+  animation-delay: 50ms;
+}
+
+.buildlog {
+  animation-delay: 100ms;
+}
+
+/* Build log: desktop only, decorative mirror of form progress */
+.buildlog {
+  display: none;
+}
+
+/* ─── Main column + card ─────────────────────────── */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  background: var(--white);
+}
+
+.card {
+  width: 100%;
+  min-width: 0;
+  padding: 20px 20px calc(28px + env(safe-area-inset-bottom));
+  background: var(--white);
+}
+
+/* Card header: the h2 title + lede + progress */
+.card__header {
+  padding-bottom: 0;
+}
+
+.card__title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--ink-950);
+}
+
+.card__lede {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: var(--ink-500);
+}
+
+/* ─── Tablet ────────────────────────────────────────── */
+
+@media (min-width: 640px) {
+  .brand {
+    padding: 28px 36px 32px;
+  }
+
+  .brand__title {
+    max-width: 22ch;
+    font-size: 2rem;
+  }
+
+  .brand__pitch {
+    font-size: 0.9375rem;
+  }
+
+  .main {
+    padding: 36px 32px 52px;
+    background: var(--paper-50);
+  }
+
+  .card {
+    max-width: 620px;
+    padding: 28px 32px 32px;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card__title {
+    font-size: 1.625rem;
+  }
+}
+
+/* ─── Desktop ───────────────────────────────────────── */
+
+@media (min-width: 1024px) {
+  .shell {
+    grid-template-columns: minmax(360px, 420px) minmax(0, 1fr);
+  }
+
+  .brand {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100dvh;
+    padding: 44px 52px;
+  }
+
+  /* Override the top-of-panel radial on desktop — move it to lower-left */
+  .brand::before {
+    background-image:
+      radial-gradient(circle at -10% 85%, rgba(47, 84, 235, 0.30) 0%, transparent 55%),
+      linear-gradient(135deg, rgba(255,255,255,0.02) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(255,255,255,0.02) 25%, transparent 25%);
+    background-size: 100% 100%, 32px 32px, 32px 32px;
+  }
+
+  .brand__inner {
+    gap: 0;
+    height: 100%;
+  }
+
+  .brand__body {
+    margin-block: auto;
+  }
+
+  .brand__title {
+    font-size: clamp(2rem, 1.4rem + 1.8vw, 3rem);
+  }
+
+  .brand__pitch {
+    margin-top: 14px;
+  }
+
+  /* Build log */
+  .buildlog {
+    display: block;
+    margin-top: 36px;
+    padding: 16px 18px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.75;
+    color: var(--on-dark-muted);
+    background: var(--dark-fill);
+    border: 1px solid var(--dark-line);
+    border-radius: 8px;
+  }
+
+  .buildlog__prompt {
+    margin-bottom: 8px;
+    color: var(--on-dark);
+    opacity: 0.9;
+  }
+
+  .buildlog__prompt span {
+    color: var(--blue-300);
+  }
+
+  .buildlog__row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .buildlog__leader {
+    flex: 1;
+    min-width: 8px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.18);
+    transform: translateY(-4px);
+  }
+
+  .buildlog__status {
+    transition: color var(--duration) var(--ease);
+  }
+
+  .buildlog__row[data-state='done'] .buildlog__status {
+    color: var(--mint-300);
+  }
+
+  .buildlog__row[data-state='active'] .buildlog__status {
+    color: var(--blue-300);
+  }
+
+  .buildlog__result {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--dark-line);
+    color: var(--on-dark-muted);
+  }
+
+  .buildlog__result[data-complete] {
+    color: var(--mint-300);
+  }
+
+  /* Main */
+  .main {
+    justify-content: center;
+    min-height: 100dvh;
+    padding: 56px 48px;
+  }
+
+  .card {
+    padding: 36px 40px 40px;
+  }
+}

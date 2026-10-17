@@ -1,0 +1,280 @@
+/* Radio chips */
+
+.choice-group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.chip {
+  position: relative;
+  display: block;
+  min-width: 0;
+  height: 100%;
+}
+
+.chip__input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.chip__ui {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  height: 100%;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  background: var(--white);
+  border: 1.5px solid var(--line-subtle);
+  border-radius: var(--radius-control);
+  transition:
+    background-color var(--duration) var(--ease),
+    border-color var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease),
+    transform var(--duration-press) var(--ease);
+}
+
+.chip__dot {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  background: var(--white);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 50%;
+  transition:
+    background-color var(--duration) var(--ease),
+    border-color var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover .chip__input:not(:disabled) + .chip__ui {
+    background: var(--paper-50);
+    border-color: var(--ink-600);
+  }
+}
+
+.chip__input:active:not(:disabled) + .chip__ui {
+  background: var(--blue-50);
+  transform: scale(var(--press-button));
+}
+
+.chip__input:checked + .chip__ui {
+  background: var(--blue-50);
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 1px var(--blue-600);
+}
+
+.chip__input:checked + .chip__ui .chip__dot {
+  background: var(--blue-600);
+  border-color: var(--blue-600);
+  box-shadow: inset 0 0 0 3px var(--blue-50);
+}
+
+.chip__input:focus-visible + .chip__ui {
+  outline: 2.5px solid var(--blue-600);
+  outline-offset: 2px;
+  border-radius: 10px;
+  animation: focus-ring var(--duration) var(--ease);
+}
+
+.choices[data-invalid='true'] .chip__input:not(:checked) + .chip__ui {
+  border-color: var(--coral-500);
+}
+
+.chip__input:disabled {
+  cursor: not-allowed;
+}
+
+.chip__input:disabled + .chip__ui {
+  color: var(--ink-600);
+  background: var(--paper-100);
+  border-color: var(--line-soft);
+}
+
+
+/* Checkbox and terms disclosure */
+
+.check-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.check {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.check__input {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.check__box {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  color: var(--white);
+  background: var(--white);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 4px;
+  transition: background-color var(--duration) var(--ease), border-color var(--duration) var(--ease),
+    transform var(--duration-press) var(--ease);
+}
+
+.check__box svg {
+  opacity: 0;
+  transform: scale(var(--pop-from));
+  transition: opacity var(--duration-press) var(--ease), transform var(--duration) var(--ease);
+}
+
+.check__input:checked + .check__box svg {
+  opacity: 1;
+  transform: none;
+}
+
+.check:active .check__input:not(:disabled) + .check__box {
+  transform: scale(var(--press-small));
+}
+
+.check__label {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .check:hover .check__input:not(:disabled) + .check__box {
+    border-color: var(--ink-950);
+  }
+}
+
+.check__input:checked + .check__box {
+  background: var(--blue-600);
+  border-color: var(--blue-600);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .check:hover .check__input:checked:not(:disabled) + .check__box {
+    background: var(--blue-700);
+    border-color: var(--blue-700);
+  }
+}
+
+.check__input:focus-visible + .check__box {
+  outline: 2.5px solid var(--blue-600);
+  outline-offset: 2px;
+  border-radius: 6px;
+  animation: focus-ring var(--duration) var(--ease);
+}
+
+.check[data-invalid='true'] .check__input:not(:checked) + .check__box {
+  border-color: var(--coral-500);
+  box-shadow: inset 0 0 0 1px var(--coral-500);
+}
+
+.check__input:disabled,
+.check__input:disabled + .check__box {
+  cursor: not-allowed;
+}
+
+.check__input:disabled + .check__box {
+  background: var(--paper-100);
+  border-color: var(--line-soft);
+}
+
+.terms {
+  margin: 0 0 4px 32px;
+  font-size: 0.875rem;
+}
+
+.terms summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  font-weight: 500;
+  color: var(--blue-700);
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .terms summary:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.terms__body {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 12px 14px;
+  font-size: 0.875rem;
+  color: var(--ink-600);
+  background: var(--paper-100);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-control);
+  animation: rise 160ms var(--ease);
+}
+
+.terms__body strong {
+  color: var(--ink-950);
+}
+
+
+/* 2-col chips at all sizes — 4-col would cramp long labels like "Prefer not to say" */
+@media (min-width: 640px) {
+  /* Only use 4-col if the parent has explicitly flagged it's safe to do so */
+  .choices--4col {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (forced-colors: active) {
+  .chip__input:checked + .chip__ui {
+    border-color: Highlight;
+  }
+
+  .chip__input:checked + .chip__ui .chip__dot {
+    forced-color-adjust: none;
+    background: Highlight;
+    border-color: Highlight;
+    box-shadow: inset 0 0 0 3px Canvas;
+  }
+
+  .check__input:checked + .check__box {
+    forced-color-adjust: none;
+    color: HighlightText;
+    background: Highlight;
+    border-color: Highlight;
+  }
+}
